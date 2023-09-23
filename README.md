@@ -1,4 +1,4 @@
-# Meow-Detector
+# Meow Meow Detector
 
 ### Description:
 
