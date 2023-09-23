@@ -1,4 +1,4 @@
-# Smurf-Detector
+# Meow-Detector
 
 ### Description:
 
