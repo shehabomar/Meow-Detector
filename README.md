@@ -22,3 +22,8 @@ $$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(i)} )  \lo
 The cost is then computed by summing over all training examples:
 
 $$ J = \frac{1}{m} \sum_{i=1}^m \mathcal{L}(a^{(i)}, y^{(i)})\tag{4}$$
+
+### Optimization
+
+Write down the optimization function. The goal is to learn $w$ and $b$ by minimizing the cost function $J$. 
+For a parameter $\theta$, the update rule is $\theta$ = $\theta$ - $\alpha$ $\text{ } d\theta$, where $\alpha$ is the learning rate.
