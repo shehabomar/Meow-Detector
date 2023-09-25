@@ -1,6 +1,9 @@
 # Meow Meow Detector
 
 ### Description:
+- Implementing the Logistic Regression Classifier with Neural Networks mindset to detect cats from images.
+- Librabries used: `Matplotlib`, `h5py`, `numpy`, `PIL` and `scipy`.
+- We are given a dataset of cats images as h5 file and the task is to tell if the image is a cat or not.
 
 <hr>
 
