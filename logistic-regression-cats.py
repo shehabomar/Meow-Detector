@@ -3,13 +3,11 @@ import copy
 import matplotlib.pyplot as plt
 import h5py
 import scipy
+import os
 from PIL import Image
 from scipy import ndimage
 from lr_utils import load_dataset
 from public_tests import *
-
-image = input("Enter the path of the image you want to check: ")
-# import os to go to the paths given and then implement the rest of the code 
 
 
 # Loading the data (cat/non-cat)
@@ -170,4 +168,19 @@ plt.xlabel('iterations (per hundreds)')
 plt.title("Learning rate =" + str(logistic_regression_model["learning_rate"]))
 plt.show()
 
+# The path of the image
+file_path = input("Enter the name of the image you want to check: ")
+fname = "images/" + file_path
+
+try:
+    # We preprocess the image to fit your algorithm.
+    image = np.array(Image.open(fname).resize((num_px, num_px)))
+    plt.imshow(image)
+    image = image / 255.
+    image = image.reshape((1, num_px * num_px * 3)).T
+    my_predicted_image = predict(logistic_regression_model["w"], logistic_regression_model["b"], image)
+    print("y = " + str(np.squeeze(my_predicted_image)) + ", your algorithm predicts a \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\" picture.")
+
+except FileNotFoundError:
+    print(f"Error: The file '{fname}' was not found.")
 
