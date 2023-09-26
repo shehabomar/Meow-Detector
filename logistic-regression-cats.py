@@ -8,9 +8,8 @@ from scipy import ndimage
 from lr_utils import load_dataset
 from public_tests import *
 
-%matplotlib inline
-%load_ext autoreload
-%autoreload 2
+image = input("Enter the path of the image you want to check: ")
+# import os to go to the paths given and then implement the rest of the code 
 
 
 # Loading the data (cat/non-cat)
@@ -75,3 +74,100 @@ def propagate(w, b, X, Y):
              "db": db}
 
     return grads, cost
+
+def optimize(w, b, X, Y, num_iterations=100, learning_rate=0.009, print_cost=False):
+    
+    costs = []
+    
+    for i in range(num_iterations):
+        # Cost and gradient calculation 
+        grads, cost = propagate(w, b, X, Y)
+        
+        # Retrieve derivatives from grads
+        dw = grads["dw"]
+        db = grads["db"]
+        
+        # Update rule
+        w = w - learning_rate * dw
+        b = b - learning_rate * db
+        
+        # Record the costs
+        if i % 100 == 0:
+            costs.append(cost)
+        
+            # Print the cost every 100 training iterations
+            if print_cost:
+                print("Cost after iteration %i: %f" % (i, cost))
+    
+    params = {"w": w,
+              "b": b}
+    
+    grads = {"dw": dw,
+             "db": db}
+    
+    return params, grads, costs
+def predict(w, b, X):
+    
+    #creating the array that will store the predictions 
+    m = X.shape[1]
+    Y_prediction = np.zeros((1, m))
+    w = w.reshape(X.shape[0], 1)
+    
+    # calculating the activations
+    A = sigmoid(np.dot(w.T,X) + b)
+    
+    # looping through the data to check if the activation is greater than 0.5 or not to map it to its correct value
+    for i in range(A.shape[1]):
+        
+       if(A[0,i] > 0.5):
+            Y_prediction[0,i] = 1
+       else:
+            Y_prediction[0,i] = 0
+        
+    
+    return Y_prediction
+
+def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0.5, print_cost=False):
+    
+    # intializing the w and b 
+    w, b = initialize_with_zeros(X_train.shape[0])
+    
+    # retriving the values of params, grads, costs from the optimization function
+    params, grads, costs = optimize(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost)
+    
+    w = params["w"]
+    b = params["b"]
+    
+    # predicting the values of the training datasets
+    Y_prediction_test = predict(w,b,X_test)
+    Y_prediction_train = predict(w,b,X_train)
+
+
+    # Print train/test Errors
+    if print_cost:
+        print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
+        print("test accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_test - Y_test)) * 100))
+
+
+    d = {"costs": costs,
+         "Y_prediction_test": Y_prediction_test,
+         "Y_prediction_train" : Y_prediction_train,
+         "w" : w,
+         "b" : b,
+         "learning_rate" : learning_rate,
+         "num_iterations": num_iterations}
+
+    return d
+
+# running the model on the data set to check if it works with good effeciency or not
+logistic_regression_model = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations=2000, learning_rate=0.005, print_cost=True)
+
+# Plot learning curve (with costs)
+costs = np.squeeze(logistic_regression_model['costs'])
+plt.plot(costs)
+plt.ylabel('cost')
+plt.xlabel('iterations (per hundreds)')
+plt.title("Learning rate =" + str(logistic_regression_model["learning_rate"]))
+plt.show()
+
+
