@@ -1,9 +1,11 @@
 # Meow Meow Detector
 
-### Description:
+## Description:
 - Implementing the Logistic Regression Classifier with Neural Networks mindset to detect cats from images.
 - Librabries used: `Matplotlib`, `h5py`, `numpy`, `PIL` and `scipy`.
 - We are given a dataset of cats images as h5 file and the task is to tell if the image is a cat or not.
+- The user can clone the repo and test the model by giving it his images.
+- The Model was trained on small dataset and its test accuracy is 70% while its training accuracy is approximatly 100%.
 
 <hr>
 
@@ -36,4 +38,29 @@ For a parameter $\theta$, the update rule is $\theta$ = $\theta$ - $\alpha$ $\te
 
 1. Calculate $\hat{Y} = A = \sigma(w^T X + b)$
 
-2. Convert the entries of a into 0 (if activation <= 0.5) or 1 (if activation > 0.5), stores the predictions in a vector `Y_prediction`. If you wish, you can use an `if`/`else` statement in a `for` loop (though there is also a way to vectorize this). 
+2. Convert the entries of a into 0 (if activation <= 0.5) or 1 (if activation > 0.5), stores the predictions in a vector `Y_prediction`. If you wish, you can use an `if`/`else` statement in a `for` loop (though there is also a way to vectorize this).
+
+## Installation
+To get started with Meow Meow Detector, follow these installation steps:
+
+### Prerequisets:
+1. `Python3`
+2. Install libraries mentioned above using the following command:
+```
+pip3 install <library name>
+```
+
+### Run The Model
+1. Clone this repository to your local machine:
+```
+git clone https://github.com/shehabomar/Meow-Detector.git
+```
+2. Navigate to the project directory:
+```
+cd Meow-Detector
+```
+3. Run the model:
+```
+python3 logistic-regression-cats.py
+```
+   
